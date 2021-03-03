@@ -1,6 +1,7 @@
 package com.rgasparin.user;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
@@ -20,12 +21,12 @@ public class UserService {
 	
 	public List<UserDTO> findAll() {
 		List<User> entity = userRepository.findAll();
-		return entity == null ? null : entity.stream().map(UserDTO::new).collect(Collectors.toList());
+		return entity.stream().map(UserDTO::new).collect(Collectors.toList());
 	}
 	
 	public UserDTO findById(Long id) {
-		User entity = userRepository.findById(id).orElse(null);
-		return entity == null ? null : new UserDTO(entity);
+		Optional<User> entity = userRepository.findById(id);
+		return !entity.isPresent() ? null : new UserDTO(entity.get());
 	}
 	
 	public UserDTO save(UserDTO dto) {
@@ -38,6 +39,7 @@ public class UserService {
 		if(dto == null) {
 			throw new EntityNotFoundException("User not found!");
 		}
-		userRepository.delete(dto.toEntity());
+		 userRepository.delete(dto.toEntity());
+		 
 	}
 }

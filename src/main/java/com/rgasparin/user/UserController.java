@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
@@ -121,8 +120,8 @@ public class UserController {
 			@ApiResponse(code = 404, message = MSG_NOT_FOUND_ERROR),
 			@ApiResponse(code = 500, message = MSG_INTERNAL_ERROR, response = String.class)
 		})
-	@DeleteMapping
-	public @ResponseBody ResponseEntity<Object> delete(
+	@DeleteMapping("{id}")
+	public ResponseEntity<Object> delete(
 			@ApiParam(value = "User id", required = true, name = "id")
 			@PathVariable("id")  Long id) {
 		try {

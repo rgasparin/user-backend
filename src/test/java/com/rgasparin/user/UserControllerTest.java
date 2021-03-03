@@ -3,6 +3,7 @@ package com.rgasparin.user;
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.standaloneSetup;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.doNothing;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,7 +83,7 @@ public class UserControllerTest {
 			.statusCode(HttpStatus.NOT_FOUND.value());
 	}
 	
-	/*@Test
+	@Test
 	public void returnSuccess_WhenSaveUser() {
 
 		UserDTO dto = new UserDTO(1L, "00000000171", "User Mock");
@@ -102,7 +103,10 @@ public class UserControllerTest {
 	
 	@Test
 	public void returnBadRequest_WhenSaveUser() {
+		
+
 		given()
+			.body("{id: 1L, cpf: 00971231, nome: \"FULANO\"}")
 			.accept(ContentType.JSON)
 			.contentType(ContentType.JSON)
 		.when()
@@ -114,15 +118,16 @@ public class UserControllerTest {
 
 	@Test
 	public void returnSuccess_WhenDeleteUser() {
-
+		doNothing().when(userService).delete(1L);
 		
 		given()
 			.accept(ContentType.JSON)
 		.when()
 			.delete("/user/{id}", 1L)
 		.then()
-			.statusCode(HttpStatus.METHOD_NOT_ALLOWED.value());
+			.statusCode(HttpStatus.OK.value());
 
-	}*/
+	}
+	
 
 }
