@@ -25,7 +25,7 @@ import io.swagger.annotations.ApiResponses;
 
 //return object saving response http with json or xml
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin
 //mapping the web request to spring Controller
 @RequestMapping("user")
 public class UserController {
